@@ -1,8 +1,15 @@
+//------------------------------------------------------ HomePage ----------------------------------------------
+// importação AppBar customizada
+import 'package:appagendaescolar/Components/AppBar/main.dart';
+// importação menu Hamburguer(drawer)
 import 'package:appagendaescolar/Components/Drawer/main.dart';
+// importação do calendário da página inicial do cliente
+import 'package:appagendaescolar/Components/Table_calendar/main.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  // title é o nome que fica no AppBar (Agenda Escolar)
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -11,66 +18,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String clique = "Não Clicou";
-
   @override
   Widget build(BuildContext context) {
-    MyDrawer drawerClass = MyDrawer(); // Remove unnecessary 'new'
-    AppBarCustom appBarCustomizada = AppBarCustom(
-      title: widget.title,
-      homePageState: this, // Pass the required argument
-    );
-
     return Scaffold(
-      appBar: appBarCustomizada,
-      drawer: drawerClass,
+      // chamando AppBar customizada e enviando o título como parâmetro
+      appBar: AppBarCustom(
+        title: widget.title,
+      ),
+      //Chamando Drawer
+      drawer: MyDrawer(),
+      // Criando container para delimitar o Calendário
       body: Container(
-        child: Text(clique),
-      ),
-    );
-  }
-
-  void AlteraClique() {
-    setState(() {
-      clique = clique == 'Não Clicou' ? 'Clicou' : 'Não Clicou';
-    });
-  }
-}
-
-class AppBarCustom extends StatefulWidget implements PreferredSizeWidget {
-  const AppBarCustom(
-      {super.key, required this.title, required this.homePageState});
-
-  final String title;
-  final _MyHomePageState homePageState;
-
-  @override
-  State<AppBarCustom> createState() => _AppBarCustomState();
-
-  @override
-  final Size preferredSize = const Size.fromHeight(kToolbarHeight);
-}
-
-class _AppBarCustomState extends State<AppBarCustom> {
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: Color.fromARGB(255, 4, 36, 4),
-      leading: DrawerButton(
-        style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.white)),
-      ),
-      actions: <Widget>[
-        IconButton(
-          color: Colors.white,
-          onPressed: () {
-            widget.homePageState.AlteraClique();
-          },
-          icon: Icon(Icons.add),
-        )
-      ],
-      title: Text(
-        widget.title,
-        style: TextStyle(color: Colors.white),
+        width: MediaQuery.of(context).size.width * 0.9,
+        height: MediaQuery.of(context).size.height * 0.9,
+        // Chamando calendário
+        child: CalendarPage(),
       ),
     );
   }

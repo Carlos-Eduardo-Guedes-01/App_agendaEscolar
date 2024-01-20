@@ -71,7 +71,19 @@ class MyDrawer extends StatelessWidget {
             ],
           ),
           ListTile(
-            title: Text('Opção 1'),
+            title: Text('Configurações'),
+            onTap: () {
+              // Faz algo quando a opção 2 é clicada
+            },
+          ),
+          ListTile(
+            title: Text('Contato'),
+            onTap: () {
+              // Faz algo quando a opção 2 é clicada
+            },
+          ),
+          ListTile(
+            title: Text('Sobre'),
             onTap: () {
               // Faz algo quando a opção 2 é clicada
             },
